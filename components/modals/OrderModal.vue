@@ -24,7 +24,8 @@ export default {
     orderBy: String,
     descending: Boolean,
     episodes: Boolean,
-    authors: Boolean
+    authors: Boolean,
+    narrators: Boolean
   },
   data() {
     return {
@@ -187,6 +188,7 @@ export default {
       return this.$store.getters['libraries/getCurrentLibraryMediaType'] === 'podcast'
     },
     items() {
+      if (this.narrators) return [{ text: this.$strings.LabelName, value: 'name' }, { text: this.$strings.LabelNumberOfBooks, value: 'numBooks' }]
       if (this.episodes) return this.episodeItems
       if (this.authors) return this.authorItems
       if (this.isPodcast) return this.podcastItems
@@ -199,7 +201,7 @@ export default {
       if (this.selected === val) {
         this.selectedDesc = !this.selectedDesc
       } else {
-        if (this.authors) {
+        if (this.authors || this.narrators) {
           // Dates and counts read best newest/largest first, names A-Z
           this.selectedDesc = val === 'addedAt' || val === 'numBooks'
         } else if (val === 'recent' || val === 'addedAt') {

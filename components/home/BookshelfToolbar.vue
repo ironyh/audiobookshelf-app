@@ -15,12 +15,14 @@
         </template>
         <span v-if="seriesBookPage" class="material-symbols text-2xl px-2" @click="downloadSeries">download</span>
         <span v-if="page === 'authors'" class="material-symbols text-2xl px-2" @click="showAuthorSortModal = true">sort</span>
+        <button v-if="page === 'narrators'" type="button" class="material-symbols text-2xl px-2" :aria-label="$strings.ButtonSort" @click="showNarratorSortModal = true">sort</button>
         <span v-if="(page == 'library' && isBookLibrary) || seriesBookPage" class="material-symbols text-2xl px-2" @click="showMoreMenuDialog = true">more_vert</span>
       </div>
     </div>
 
     <modals-order-modal v-model="showSortModal" :order-by.sync="settings.mobileOrderBy" :descending.sync="settings.mobileOrderDesc" @change="updateOrder" />
     <modals-order-modal v-model="showAuthorSortModal" authors :order-by.sync="settings.mobileAuthorSortBy" :descending.sync="settings.mobileAuthorSortDesc" @change="updateOrder" />
+    <modals-order-modal v-model="showNarratorSortModal" narrators :order-by.sync="settings.mobileNarratorSortBy" :descending.sync="settings.mobileNarratorSortDesc" @change="updateOrder" />
     <modals-filter-modal v-model="showFilterModal" :filter-by.sync="settings.mobileFilterBy" @change="updateFilter" />
     <modals-dialog v-model="showMoreMenuDialog" :items="menuItems" @action="clickMenuAction" />
   </div>
@@ -32,6 +34,7 @@ export default {
     return {
       showSortModal: false,
       showAuthorSortModal: false,
+      showNarratorSortModal: false,
       showFilterModal: false,
       settings: {},
       totalEntities: 0,
@@ -78,6 +81,8 @@ export default {
         return this.$strings.ButtonCollections
       } else if (this.page === 'authors') {
         return this.$strings.LabelAuthors
+      } else if (this.page === 'narrators') {
+        return this.$strings.LabelNarrators
       }
       return ''
     },

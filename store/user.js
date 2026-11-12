@@ -12,6 +12,8 @@ export const state = () => ({
     mobileFilterBy: 'all',
     mobileAuthorSortBy: 'name',
     mobileAuthorSortDesc: false,
+    mobileNarratorSortBy: 'name',
+    mobileNarratorSortDesc: false,
     playbackRate: 1,
     collapseSeries: false,
     collapseBookSeries: false,
